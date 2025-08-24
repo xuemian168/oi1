@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/oi1/' : '/',
+  base: '/',
   build: {
     outDir: 'dist',
     sourcemap: false,
