@@ -1,189 +1,200 @@
-# oi1 视觉加密工具
+# oi1 Visual Encoder
 
-一个基于视觉相似字符的文本加密工具，利用 `O`、`0`、`I`、`l` 字符的高度相似性实现视觉混淆效果。
+A visual obfuscation text encoder that leverages the high visual similarity between `O`, `0`, `I`, and `l` characters to create confusion effects.
 
-## ✨ 特性
+[中文文档](./README.zh-CN.md) | [Demo](https://oi.zli.li/)
 
-- 🔐 **视觉混淆加密** - 将任意文本转换为仅含 O0Il 的密文
-- 🌍 **多语言支持** - 中文/英文界面切换
-- 📊 **实时演示** - 可视化展示加密解密过程
-- 🔧 **简洁高效** - 单一标准模式，确保完全可逆
-- 🔧 **完全可逆** - 标准模式下100%无损还原
-- 🛡️ **本地处理** - 所有操作在浏览器本地执行
-- 📱 **响应式设计** - 支持桌面和移动设备
+## ✨ Features
 
-## 🎯 算法原理
+- 🔐 **Visual Obfuscation** - Convert any text into ciphertext containing only O0Il characters
+- 🌍 **Multi-language Support** - Chinese/English interface switching
+- 📊 **Real-time Demo** - Visualize encoding and decoding processes
+- 🔧 **Simple & Efficient** - Single standard mode ensuring complete reversibility
+- 🔧 **Fully Reversible** - 100% lossless restoration in standard mode
+- 🛡️ **Local Processing** - All operations performed locally in browser
+- 📱 **Responsive Design** - Support for desktop and mobile devices
 
-oi1 算法的核心思想是利用字符的视觉相似性：
+## 🎯 Algorithm Principle
 
-```
-字符映射表：
-00 → O (大写O)
-01 → 0 (数字零)  
-10 → I (大写I)
-11 → l (小写L)
-```
-
-### 加密流程
-
-1. **文本转UTF-8** - 将输入文本转换为字节数组
-2. **二进制转换** - 每个字节转为8位二进制串
-3. **分组映射** - 每2位二进制映射为一个 O0Il 字符
-4. **密文输出** - 生成仅含相似字符的密文
-
-### 示例
+The core idea of oi1 algorithm is to leverage visual character similarity:
 
 ```
-原文: "Hi"
+Character Mapping Table:
+00 → O (Uppercase O)
+01 → 0 (Digit Zero)
+10 → I (Uppercase I)
+11 → l (Lowercase L)
+```
+
+### Encoding Process
+
+1. **Text to UTF-8** - Convert input text to byte array
+2. **Binary Conversion** - Transform each byte to 8-bit binary string
+3. **Group Mapping** - Map every 2 bits to one O0Il character
+4. **Cipher Output** - Generate ciphertext containing only similar characters
+
+### Example
+
+```
+Original: "Hi"
 UTF-8: [72, 105]
-二进制: 01001000 01101001  
-分组: 01|00|10|00 01|10|10|01
-映射: 0|O|I|O 0|I|I|0
-密文: 0OIO0II0
+Binary: 01001000 01101001
+Groups: 01|00|10|00 01|10|10|01
+Mapping: 0|O|I|O 0|I|I|0
+Cipher: 0OIO0II0
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 环境要求
+### Requirements
 
 - Node.js 16+
-- 现代浏览器（支持 ES6+）
+- Modern browser (ES6+ support)
 
-### 安装与运行
+### Installation & Running
 
 ```bash
-# 安装依赖
+# Install dependencies
 npm install
 
-# 启动开发服务器
+# Start development server
 npm run dev
 
-# 构建生产版本
+# Build for production
 npm run build
 
-# 预览构建结果
+# Preview build result
 npm run preview
+
+# Deploy to GitHub Pages
+npm run deploy
 ```
 
-### 访问应用
+### Access Application
 
-开发模式下访问：`http://localhost:3000`
+Development mode: `http://localhost:3000`
 
-## 📖 使用指南
+## 📖 Usage Guide
 
-### 基础使用
+### Basic Usage
 
-1. **加密文本**
-   - 在左侧面板输入原文
-   - 点击"加密"按钮
-   - 复制右侧生成的密文
+1. **Encrypt Text**
+   - Enter plain text in the left panel
+   - Click "Encrypt" button
+   - Copy the generated cipher from right panel
 
-2. **解密文本**
-   - 在右侧面板输入密文
-   - 系统自动验证格式
-   - 点击"解密"按钮
-   - 查看解密结果
+2. **Decrypt Text**
+   - Enter cipher text in the right panel
+   - System automatically validates format
+   - Click "Decrypt" button
+   - View decryption result
 
+### Keyboard Shortcuts
 
-### 快捷键
+- `Ctrl/Cmd + Enter` - Execute encrypt/decrypt
+- `Ctrl/Cmd + K` - Clear current input
+- `ESC` - Close help modal
 
-- `Ctrl/Cmd + Enter` - 执行加密/解密
-- `Ctrl/Cmd + K` - 清空当前输入框
-- `ESC` - 关闭帮助弹窗
-
-## 🏗️ 项目结构
+## 🏗️ Project Structure
 
 ```
 oi1/
 ├── src/
 │   ├── core/
-│   │   └── oi1-algorithm.js     # 核心加密算法
+│   │   └── oi1-algorithm.js     # Core encryption algorithm
 │   ├── components/
-│   │   ├── demo-viewer.js       # 算法演示组件
-│   │   └── help-modal.js        # 帮助模态框
+│   │   ├── demo-viewer.js       # Algorithm demonstration component
+│   │   └── help-modal.js        # Help modal
 │   ├── i18n/
-│   │   ├── zh-CN.json          # 中文语言包
-│   │   └── en-US.json          # 英文语言包
+│   │   ├── zh-CN.json          # Chinese language pack
+│   │   └── en-US.json          # English language pack
 │   ├── utils/
-│   │   └── clipboard.js        # 剪贴板工具
+│   │   └── clipboard.js        # Clipboard utilities
 │   ├── styles/
-│   │   └── main.css            # 主样式文件
-│   └── main.js                 # 应用入口
-├── index.html                  # HTML模板
-├── vite.config.js             # Vite配置
-└── package.json               # 项目配置
+│   │   └── main.css            # Main stylesheet
+│   └── main.js                 # Application entry
+├── index.html                  # HTML template
+├── vite.config.js             # Vite configuration
+└── package.json               # Project configuration
 ```
 
-## 🔧 技术栈
+## 🔧 Tech Stack
 
-- **构建工具**: Vite
-- **前端框架**: Vanilla JavaScript (ES6+)
-- **样式方案**: 原生CSS + CSS变量
-- **字体优化**: JetBrains Mono 等宽字体
-- **国际化**: 自定义 i18n 系统
-- **剪贴板**: 现代 Clipboard API + 传统方法兼容
+- **Build Tool**: Vite
+- **Frontend**: Vanilla JavaScript (ES6+)
+- **Styling**: Native CSS + CSS Variables
+- **Font**: JetBrains Mono monospace font
+- **i18n**: Custom internationalization system
+- **Clipboard**: Modern Clipboard API + legacy fallback
 
-## 🎨 设计特色
+## 🎨 Design Features
 
-### 视觉混淆优化
+### Visual Obfuscation Optimization
 
-- 使用等宽字体增强字符相似性
-- 特殊的字符间距调整
-- 三种不同程度的混淆级别
-- 智能换行避免明显模式
+- Monospace font to enhance character similarity
+- Special character spacing adjustments
+- Smart line breaking to avoid obvious patterns
+- Optimal display in cipher areas
 
-### 用户体验
+### User Experience
 
-- 实时输入验证
-- 字符计数显示
-- 一键复制功能
-- 算法过程可视化
-- 响应式界面设计
+- Real-time input validation
+- Character count display
+- One-click copy functionality
+- Algorithm process visualization
+- Responsive interface design
 
-## 🛡️ 安全说明
+## 🛡️ Security Notice
 
-**重要提醒**: 本工具主要用于视觉混淆，**不提供加密安全保护**。
+**Important Notice**: This tool is primarily for visual obfuscation and **does NOT provide cryptographic security**.
 
-### 安全特性
+### Security Features
 
-- ✅ 本地处理，不上传数据
-- ✅ 支持离线使用
-- ✅ 开源代码，可审查
-- ✅ 无需服务器依赖
+- ✅ Local processing, no data upload
+- ✅ Offline usage support
+- ✅ Open source, auditable code
+- ✅ No server dependencies
 
-### 适用场景
+### Suitable Scenarios
 
-- 文本视觉隐蔽
-- 教学演示
-- 趣味编码
-- 原型开发
+- Text visual concealment
+- Educational demonstrations
+- Fun encoding exercises
+- Prototype development
 
-### 不适用场景
+### Unsuitable Scenarios
 
-- 敏感数据加密
-- 安全通信
-- 密码保护
-- 商业机密
+- Sensitive data encryption
+- Secure communications
+- Password protection
+- Business secrets
 
-## 🤝 贡献指南
+## 🌐 Browser Compatibility
 
-欢迎贡献代码、报告问题或提出建议！
+- Chrome 80+
+- Firefox 74+
+- Safari 13.1+
+- Edge 80+
 
-### 开发流程
+## 🤝 Contributing
 
-1. Fork 项目
-2. 创建特性分支
-3. 提交更改
-4. 推送到分支
-5. 创建 Pull Request
+Contributions, issues, and feature requests are welcome!
 
-### 代码规范
+### Development Workflow
 
-- 使用 ES6+ 语法
-- 遵循函数式编程原则
-- 添加适当的注释
-- 保持代码简洁清晰
+1. Fork the project
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-## 📄 许可证
+### Code Standards
 
-MIT License - 详见 [LICENSE](LICENSE) 文件
+- Use ES6+ syntax
+- Follow functional programming principles
+- Add appropriate comments
+- Keep code clean and simple
+
+## 📄 License
+
+MIT License - See [LICENSE](LICENSE) file for details

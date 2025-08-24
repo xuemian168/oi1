@@ -4,7 +4,6 @@
  */
 
 import i18n from '../i18n/index.js';
-import { BINARY_TO_CHAR, CHAR_TO_BINARY } from '../core/oi1-algorithm.js';
 
 export class HelpModal {
     constructor() {
