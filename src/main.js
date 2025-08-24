@@ -205,6 +205,9 @@ class OI1App {
             this.elements.ciphertext.value = ciphertext;
             this.updateCharCount('ciphertext');
             
+            // 更新按钮状态
+            this.updateButtonStates();
+            
             // 显示统计信息
             this.showEncodingStats(plaintext, ciphertext);
             
@@ -219,6 +222,7 @@ class OI1App {
             
         } finally {
             this.setButtonLoading(this.elements.encodeBtn, false);
+            this.updateButtonStates();
         }
     }
 
@@ -243,6 +247,9 @@ class OI1App {
             this.elements.plaintextOutput.value = plaintext;
             this.updateCharCount('plaintextOutput');
             
+            // 更新按钮状态
+            this.updateButtonStates();
+            
             // 生成演示
             this.demoViewer.showDecodingDemo(ciphertext);
             
@@ -254,6 +261,7 @@ class OI1App {
             
         } finally {
             this.setButtonLoading(this.elements.decodeBtn, false);
+            this.updateButtonStates();
         }
     }
 
@@ -362,12 +370,12 @@ class OI1App {
             button.dataset.originalText = originalText;
             button.textContent = '...';
         } else {
-            button.disabled = false;
             button.classList.remove('loading');
             if (button.dataset.originalText) {
                 button.textContent = button.dataset.originalText;
                 delete button.dataset.originalText;
             }
+            // 不在这里设置 disabled = false，让 updateButtonStates 来控制
         }
     }
 
