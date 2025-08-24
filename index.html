@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oi1 视觉加密工具 - 基于O0Il字符的文本混淆工具</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="oi1 是一个基于视觉相似字符的文本加密工具，利用 O、0、I、l 字符的高度相似性实现视觉混淆效果。支持中英文界面，完全本地化处理。">
+    <meta name="keywords" content="oi1, 视觉加密, 文本混淆, O0Il字符, 加密工具, visual encryption, text obfuscation">
+    <meta name="author" content="oi1 Project">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="oi1 视觉加密工具">
+    <meta property="og:description" content="基于视觉相似字符的文本加密工具，利用 O0Il 字符实现视觉混淆效果">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://username.github.io/oi1/">
+    <meta property="og:site_name" content="oi1 Visual Encoder">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="oi1 视觉加密工具">
+    <meta name="twitter:description" content="基于视觉相似字符的文本加密工具">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./public/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="./public/favicon.svg">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="./src/styles/main.css">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1e40af">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="container">
+                <h1 class="title" data-i18n="app.title">oi1 视觉加密工具</h1>
+                <div class="nav-controls">
+                    <select id="languageSelect" class="language-select">
+                        <option value="zh-CN">中文</option>
+                        <option value="en-US">English</option>
+                    </select>
+                    <button id="helpBtn" class="btn btn-secondary" data-i18n="ui.help">算法说明</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <div class="container">
+                <!-- 双面板布局 -->
+                <div class="panels-container">
+                    <!-- 左面板：加密器 -->
+                    <div class="panel encoder-panel">
+                        <div class="panel-header">
+                            <h2 data-i18n="encoder.title">加密器</h2>
+                            <span class="panel-subtitle" data-i18n="encoder.subtitle">将文本转换为 O0Il 字符</span>
+                        </div>
+                        <div class="panel-content">
+                            <!-- 原文输入 -->
+                            <div class="input-group">
+                                <label for="plaintext" data-i18n="encoder.input.label">原文输入</label>
+                                <textarea 
+                                    id="plaintext" 
+                                    class="input-textarea" 
+                                    placeholder="请输入要加密的文本..."
+                                    data-i18n-placeholder="encoder.input.placeholder"
+                                    rows="8"></textarea>
+                                <div class="input-info">
+                                    <span class="char-count">字符数：<span id="plaintextCount">0</span></span>
+                                </div>
+                            </div>
+
+
+                            <!-- 操作按钮 -->
+                            <div class="button-group">
+                                <button id="encodeBtn" class="btn btn-primary" data-i18n="ui.encrypt">加密</button>
+                                <button id="clearPlainBtn" class="btn btn-secondary" data-i18n="ui.clear">清空</button>
+                            </div>
+
+                            <!-- 密文输出 -->
+                            <div class="output-group">
+                                <label for="ciphertext" data-i18n="encoder.output.label">密文输出</label>
+                                <textarea 
+                                    id="ciphertext" 
+                                    class="output-textarea cipher-display" 
+                                    readonly 
+                                    rows="8"
+                                    placeholder="加密结果将在这里显示..."
+                                    data-i18n-placeholder="encoder.output.placeholder"></textarea>
+                                <div class="output-info">
+                                    <span class="char-count">字符数：<span id="ciphertextCount">0</span></span>
+                                    <button id="copyCipherBtn" class="btn btn-copy" data-i18n="ui.copy">复制</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右面板：解密器 -->
+                    <div class="panel decoder-panel">
+                        <div class="panel-header">
+                            <h2 data-i18n="decoder.title">解密器</h2>
+                            <span class="panel-subtitle" data-i18n="decoder.subtitle">将 O0Il 字符还原为文本</span>
+                        </div>
+                        <div class="panel-content">
+                            <!-- 密文输入 -->
+                            <div class="input-group">
+                                <label for="cipherInput" data-i18n="decoder.input.label">密文输入</label>
+                                <textarea 
+                                    id="cipherInput" 
+                                    class="input-textarea cipher-display" 
+                                    placeholder="请输入由 O0Il 组成的密文..."
+                                    data-i18n-placeholder="decoder.input.placeholder"
+                                    rows="8"></textarea>
+                                <div class="input-info">
+                                    <span class="char-count">字符数：<span id="cipherInputCount">0</span></span>
+                                    <span id="validationStatus" class="validation-status"></span>
+                                </div>
+                            </div>
+
+                            <!-- 操作按钮 -->
+                            <div class="button-group">
+                                <button id="decodeBtn" class="btn btn-primary" data-i18n="ui.decrypt">解密</button>
+                                <button id="clearCipherBtn" class="btn btn-secondary" data-i18n="ui.clear">清空</button>
+                                <button id="pasteBtn" class="btn btn-secondary" data-i18n="ui.paste">粘贴</button>
+                            </div>
+
+                            <!-- 原文输出 -->
+                            <div class="output-group">
+                                <label for="plaintextOutput" data-i18n="decoder.output.label">原文输出</label>
+                                <textarea 
+                                    id="plaintextOutput" 
+                                    class="output-textarea" 
+                                    readonly 
+                                    rows="8"
+                                    placeholder="解密结果将在这里显示..."
+                                    data-i18n-placeholder="decoder.output.placeholder"></textarea>
+                                <div class="output-info">
+                                    <span class="char-count">字符数：<span id="plaintextOutputCount">0</span></span>
+                                    <button id="copyPlainBtn" class="btn btn-copy" data-i18n="ui.copy">复制</button>
+                                </div>
+                            </div>
+
+                            <!-- 错误提示 -->
+                            <div id="errorMessage" class="error-message" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 算法演示区域 -->
+                <div class="demo-section" id="demoSection">
+                    <div class="demo-header">
+                        <h3 data-i18n="demo.title">算法原理演示</h3>
+                        <button id="toggleDemo" class="btn btn-secondary" data-i18n="demo.toggle">展开演示</button>
+                    </div>
+                    <div class="demo-content" id="demoContent" style="display: none;">
+                        <!-- 算法演示内容将由 JavaScript 动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 帮助弹窗 -->
+        <div id="helpModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 data-i18n="help.title">oi1 算法原理</h3>
+                    <button id="closeModal" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- 帮助内容将由 JavaScript 动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oi1 解码测试</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .result { background: #f0f0f0; padding: 10px; margin: 10px 0; }
+        .error { background: #ffe6e6; color: red; }
+        .success { background: #e6ffe6; color: green; }
+    </style>
+</head>
+<body>
+    <h1>oi1 解码测试</h1>
+    
+    <div>
+        <label>测试密文: O0O0OOOOO0OOOOO0OOO0OOOO</label>
+        <button onclick="testDecode()">解码测试</button>
+    </div>
+    
+    <div id="result"></div>
+
+    <script type="module">
+        // 简化版的解码器
+        const CHAR_TO_BINARY = {
+            'O': '00',
+            '0': '01', 
+            'I': '10',
+            'l': '11'
+        };
+
+        function decode(ciphertext) {
+            console.log('输入密文:', ciphertext);
+            
+            // 转换为二进制
+            let binaryString = '';
+            for (const char of ciphertext) {
+                binaryString += CHAR_TO_BINARY[char];
+            }
+            console.log('二进制串:', binaryString);
+            
+            // 分组为字节
+            const bytes = [];
+            for (let i = 0; i < binaryString.length; i += 8) {
+                const binaryByte = binaryString.substring(i, i + 8);
+                if (binaryByte.length === 8) {
+                    const byteValue = parseInt(binaryByte, 2);
+                    bytes.push(byteValue);
+                    console.log(`字节 ${i/8}: ${binaryByte} → ${byteValue}`);
+                }
+            }
+            
+            console.log('字节数组:', bytes);
+            
+            // 尝试UTF-8解码
+            try {
+                const uint8Array = new Uint8Array(bytes);
+                const textDecoder = new TextDecoder('utf-8', { fatal: true });
+                const result = textDecoder.decode(uint8Array);
+                console.log('解码结果:', result);
+                return result;
+            } catch (error) {
+                console.error('UTF-8解码失败:', error);
+                
+                // 尝试显示字节作为字符
+                let fallback = '';
+                for (const byte of bytes) {
+                    if (byte >= 32 && byte <= 126) { // 可打印ASCII
+                        fallback += String.fromCharCode(byte);
+                    } else {
+                        fallback += `[${byte}]`;
+                    }
+                }
+                console.log('备用显示:', fallback);
+                return `UTF-8解码失败: ${error.message}. 字节内容: ${fallback}`;
+            }
+        }
+
+        window.testDecode = function() {
+            const ciphertext = 'O0O0OOOOO0OOOOO0OOO0OOOO';
+            const result = decode(ciphertext);
+            
+            document.getElementById('result').innerHTML = `
+                <div class="result ${result.includes('失败') ? 'error' : 'success'}">
+                    <strong>解码结果:</strong> ${result}
+                </div>
+            `;
+        };
+
+        // 自动运行测试
+        testDecode();
+    </script>
+</body>
+</html>

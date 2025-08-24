@@ -1,0 +1,26 @@
+{
+  "name": "oi1-visual-encoder",
+  "version": "1.0.0",
+  "description": "基于 O0Il 视觉相似字符的文本加密工具",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist",
+    "predeploy": "npm run build"
+  },
+  "keywords": [
+    "encryption",
+    "visual",
+    "obfuscation",
+    "oi1"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.0.0",
+    "terser": "^5.43.1",
+    "vite": "^5.0.0"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "app": {
+    "title": "oi1 视觉加密工具",
+    "subtitle": "基于 O0Il 相似字符的视觉混淆加密"
+  },
+  "ui": {
+    "encrypt": "加密",
+    "decrypt": "解密", 
+    "copy": "复制",
+    "paste": "粘贴",
+    "clear": "清空",
+    "help": "算法说明",
+    "demo": "演示",
+    "expand": "展开",
+    "collapse": "收起",
+    "export": "导出",
+    "import": "导入",
+    "settings": "设置"
+  },
+  "encoder": {
+    "title": "加密器",
+    "subtitle": "将文本转换为 O0Il 字符",
+    "input": {
+      "label": "原文输入",
+      "placeholder": "请输入要加密的文本..."
+    },
+    "output": {
+      "label": "密文输出",
+      "placeholder": "加密结果将在这里显示..."
+    }
+  },
+  "decoder": {
+    "title": "解密器", 
+    "subtitle": "将 O0Il 字符还原为文本",
+    "input": {
+      "label": "密文输入",
+      "placeholder": "请输入由 O0Il 组成的密文..."
+    },
+    "output": {
+      "label": "原文输出",
+      "placeholder": "解密结果将在这里显示..."
+    }
+  },
+  "validation": {
+    "valid": "密文格式正确",
+    "invalid": "密文格式错误",
+    "empty": "输入不能为空",
+    "invalidChar": "包含无效字符",
+    "invalidLength": "长度不正确"
+  },
+  "demo": {
+    "title": "算法原理演示",
+    "toggle": "切换演示",
+    "encoding": "编码过程",
+    "decoding": "解码过程",
+    "step": "步骤",
+    "input": "输入",
+    "output": "输出",
+    "technical": "技术详情"
+  },
+  "help": {
+    "title": "oi1 算法原理",
+    "principle": {
+      "title": "核心原理",
+      "content": "oi1 算法利用字符 O、0、I、l 在视觉上的高度相似性，将任意文本转换为仅由这些字符组成的密文，实现视觉混淆效果。"
+    },
+    "mapping": {
+      "title": "字符映射",
+      "content": "算法将文本转为二进制，每2位二进制映射为一个字符：00→O, 01→0, 10→I, 11→l"
+    },
+    "security": {
+      "title": "安全特性",
+      "content": "加密过程完全在浏览器本地执行，不上传任何数据。支持离线使用，保护隐私安全。"
+    }
+  },
+  "stats": {
+    "title": "统计信息",
+    "originalLength": "原文长度",
+    "cipherLength": "密文长度", 
+    "compressionRatio": "压缩比",
+    "charDistribution": "字符分布",
+    "quality": "密文质量"
+  },
+  "messages": {
+    "copySuccess": "已复制到剪贴板",
+    "copyError": "复制失败",
+    "encodeSuccess": "加密完成",
+    "decodeSuccess": "解密完成",
+    "encodeError": "加密失败",
+    "decodeError": "解密失败",
+    "invalidInput": "输入无效",
+    "pasteSuccess": "已粘贴",
+    "pasteError": "粘贴失败",
+    "clearSuccess": "已清空"
+  },
+  "errors": {
+    "notString": "输入必须是字符串",
+    "emptyInput": "输入不能为空",
+    "invalidChar": "包含无效字符 '{char}' (位置: {position})",
+    "encodingError": "加密过程中发生错误: {error}",
+    "decodingError": "解码过程中发生错误: {error}",
+    "validationError": "密文格式错误: {error}"
+  }
+}

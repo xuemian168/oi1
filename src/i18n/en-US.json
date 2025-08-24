@@ -1,0 +1,104 @@
+{
+  "app": {
+    "title": "oi1 Visual Encoder",
+    "subtitle": "Visual Obfuscation Encryption Based on O0Il Similar Characters"
+  },
+  "ui": {
+    "encrypt": "Encrypt",
+    "decrypt": "Decrypt", 
+    "copy": "Copy",
+    "paste": "Paste",
+    "clear": "Clear",
+    "help": "Algorithm Guide",
+    "demo": "Demo",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "export": "Export",
+    "import": "Import",
+    "settings": "Settings"
+  },
+  "encoder": {
+    "title": "Encoder",
+    "subtitle": "Convert text to O0Il characters",
+    "input": {
+      "label": "Plain Text Input",
+      "placeholder": "Enter text to encrypt..."
+    },
+    "output": {
+      "label": "Cipher Text Output",
+      "placeholder": "Encryption result will appear here..."
+    }
+  },
+  "decoder": {
+    "title": "Decoder", 
+    "subtitle": "Convert O0Il characters back to text",
+    "input": {
+      "label": "Cipher Text Input",
+      "placeholder": "Enter O0Il cipher text..."
+    },
+    "output": {
+      "label": "Plain Text Output",
+      "placeholder": "Decryption result will appear here..."
+    }
+  },
+  "validation": {
+    "valid": "Cipher format is valid",
+    "invalid": "Cipher format is invalid",
+    "empty": "Input cannot be empty",
+    "invalidChar": "Contains invalid characters",
+    "invalidLength": "Incorrect length"
+  },
+  "demo": {
+    "title": "Algorithm Demonstration",
+    "toggle": "Toggle Demo",
+    "encoding": "Encoding Process",
+    "decoding": "Decoding Process",
+    "step": "Step",
+    "input": "Input",
+    "output": "Output",
+    "technical": "Technical Details"
+  },
+  "help": {
+    "title": "oi1 Algorithm Principles",
+    "principle": {
+      "title": "Core Principle",
+      "content": "The oi1 algorithm leverages the high visual similarity of characters O, 0, I, l to convert any text into cipher text composed only of these characters, achieving visual obfuscation."
+    },
+    "mapping": {
+      "title": "Character Mapping",
+      "content": "The algorithm converts text to binary, mapping each 2-bit binary to a character: 00→O, 01→0, 10→I, 11→l"
+    },
+    "security": {
+      "title": "Security Features", 
+      "content": "The encryption process executes entirely in the browser locally, without uploading any data. Supports offline use and protects privacy."
+    }
+  },
+  "stats": {
+    "title": "Statistics",
+    "originalLength": "Original Length",
+    "cipherLength": "Cipher Length", 
+    "compressionRatio": "Compression Ratio",
+    "charDistribution": "Character Distribution",
+    "quality": "Cipher Quality"
+  },
+  "messages": {
+    "copySuccess": "Copied to clipboard",
+    "copyError": "Copy failed",
+    "encodeSuccess": "Encryption completed",
+    "decodeSuccess": "Decryption completed",
+    "encodeError": "Encryption failed",
+    "decodeError": "Decryption failed",
+    "invalidInput": "Invalid input",
+    "pasteSuccess": "Pasted successfully",
+    "pasteError": "Paste failed",
+    "clearSuccess": "Cleared"
+  },
+  "errors": {
+    "notString": "Input must be a string",
+    "emptyInput": "Input cannot be empty",
+    "invalidChar": "Contains invalid character '{char}' (position: {position})",
+    "encodingError": "Error during encoding: {error}",
+    "decodingError": "Error during decoding: {error}",
+    "validationError": "Cipher format error: {error}"
+  }
+}
