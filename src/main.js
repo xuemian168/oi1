@@ -3,7 +3,7 @@
  */
 
 import i18n from './i18n/index.js';
-import { OI1Encoder, OI1Decoder, OI1Demo } from './core/oi1-algorithm.js';
+import { OI1Encoder, OI1Decoder } from './core/oi1-algorithm.js';
 import { ClipboardHelper } from './utils/clipboard.js';
 import { DemoViewer } from './components/demo-viewer.js';
 import { HelpModal } from './components/help-modal.js';

@@ -159,17 +159,32 @@ export class HelpModal {
      * @returns {string} HTML内容
      */
     generateVisualComparison() {
+        const normalText = i18n.t('help.visual.normal');
+        const monoText = i18n.t('help.visual.mono');
+        
+        // 安全地解析文本，避免 undefined
+        const parseText = (text) => {
+            const parts = text.split('：');
+            return {
+                label: parts[0] || '',
+                value: parts[1] || '0OIO0II0'
+            };
+        };
+        
+        const normal = parseText(normalText);
+        const mono = parseText(monoText);
+        
         return `
             <section class="help-section">
                 <h4>${i18n.t('help.visual.title')}</h4>
                 <div class="visual-comparison">
                     <div class="comparison-item">
-                        <span class="comparison-label">${i18n.t('help.visual.normal').split(':')[0]}：</span>
-                        <span class="comparison-value">${i18n.t('help.visual.normal').split(':')[1]}</span>
+                        <span class="comparison-label">${normal.label}：</span>
+                        <span class="comparison-value">${normal.value}</span>
                     </div>
                     <div class="comparison-item">
-                        <span class="comparison-label">${i18n.t('help.visual.mono').split(':')[0]}：</span>
-                        <span class="comparison-value cipher-display">${i18n.t('help.visual.mono').split(':')[1]}</span>
+                        <span class="comparison-label">${mono.label}：</span>
+                        <span class="comparison-value cipher-display">${mono.value}</span>
                     </div>
                 </div>
             </section>
