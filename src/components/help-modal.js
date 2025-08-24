@@ -60,175 +60,166 @@ export class HelpModal {
      * @returns {string} HTML内容
      */
     generateHelpContent() {
+        const similarity = this.generateSimilaritySection();
         const mappingTable = this.generateMappingTable();
+        const processFlow = this.generateProcessFlow();
         const exampleDemo = this.generateExampleDemo();
+        const visualComparison = this.generateVisualComparison();
         const securityInfo = this.generateSecurityInfo();
+        const tipsSection = this.generateTipsSection();
+        const specsSection = this.generateSpecsSection();
 
         return `
             <div class="help-content">
-                <!-- 核心原理 -->
-                <section class="help-section">
-                    <h4 data-i18n="help.principle.title">核心原理</h4>
-                    <p data-i18n="help.principle.content">
-                        oi1 算法利用字符 O、0、I、l 在视觉上的高度相似性，将任意文本转换为仅由这些字符组成的密文，实现视觉混淆效果。
-                    </p>
-                    
-                    <div class="visual-similarity">
-                        <h5>视觉相似性对比</h5>
-                        <div class="char-comparison">
-                            <div class="char-pair">
-                                <span class="char-display large">O</span>
-                                <span class="vs">vs</span>
-                                <span class="char-display large">0</span>
-                                <div class="similarity-note">大写O ↔ 数字零</div>
-                            </div>
-                            <div class="char-pair">
-                                <span class="char-display large">I</span>
-                                <span class="vs">vs</span>
-                                <span class="char-display large">l</span>
-                                <div class="similarity-note">大写I ↔ 小写L</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <!-- 视觉相似性对比 -->
+                ${similarity}
 
                 <!-- 字符映射 -->
                 <section class="help-section">
-                    <h4 data-i18n="help.mapping.title">字符映射规则</h4>
-                    <p data-i18n="help.mapping.content">
-                        算法将文本转为二进制，每2位二进制映射为一个字符：
-                    </p>
+                    <h4>${i18n.t('help.mapping.title')}</h4>
+                    <p>${i18n.t('help.mapping.subtitle')}</p>
                     ${mappingTable}
                 </section>
 
                 <!-- 加密流程 -->
-                <section class="help-section">
-                    <h4>加密流程</h4>
-                    <div class="flow-diagram">
-                        <div class="flow-step">
-                            <div class="flow-number">1</div>
-                            <div class="flow-content">
-                                <strong>文本输入</strong>
-                                <p>输入任意UTF-8文本</p>
-                            </div>
-                        </div>
-                        <div class="flow-arrow">↓</div>
-                        
-                        <div class="flow-step">
-                            <div class="flow-number">2</div>
-                            <div class="flow-content">
-                                <strong>UTF-8编码</strong>
-                                <p>转换为字节数组</p>
-                            </div>
-                        </div>
-                        <div class="flow-arrow">↓</div>
-                        
-                        <div class="flow-step">
-                            <div class="flow-number">3</div>
-                            <div class="flow-content">
-                                <strong>二进制转换</strong>
-                                <p>每字节转为8位二进制</p>
-                            </div>
-                        </div>
-                        <div class="flow-arrow">↓</div>
-                        
-                        <div class="flow-step">
-                            <div class="flow-number">4</div>
-                            <div class="flow-content">
-                                <strong>字符映射</strong>
-                                <p>每2位二进制映射为O0Il字符</p>
-                            </div>
-                        </div>
-                        <div class="flow-arrow">↓</div>
-                        
-                        <div class="flow-step final">
-                            <div class="flow-number">✓</div>
-                            <div class="flow-content">
-                                <strong>密文输出</strong>
-                                <p>仅含O0Il的视觉混淆文本</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                ${processFlow}
 
                 <!-- 示例演示 -->
-                <section class="help-section">
-                    <h4>加密示例</h4>
-                    ${exampleDemo}
-                </section>
+                ${exampleDemo}
 
+                <!-- 视觉效果对比 -->
+                ${visualComparison}
 
                 <!-- 安全特性 -->
-                <section class="help-section">
-                    <h4 data-i18n="help.security.title">安全特性</h4>
-                    ${securityInfo}
-                </section>
+                ${securityInfo}
 
                 <!-- 使用技巧 -->
-                <section class="help-section">
-                    <h4>使用技巧</h4>
-                    <div class="tips-list">
-                        <div class="tip-item">
-                            <span class="tip-icon">💡</span>
-                            <div class="tip-content">
-                                <strong>快捷键支持：</strong>
-                                <p>Ctrl+Enter 执行加密/解密，Ctrl+K 清空输入</p>
-                            </div>
-                        </div>
-                        
-                        <div class="tip-item">
-                            <span class="tip-icon">🎨</span>
-                            <div class="tip-content">
-                                <strong>字体优化：</strong>
-                                <p>密文区域使用等宽字体增强视觉混淆效果</p>
-                            </div>
-                        </div>
-                        
-                        <div class="tip-item">
-                            <span class="tip-icon">📊</span>
-                            <div class="tip-content">
-                                <strong>实时验证：</strong>
-                                <p>输入密文时会自动验证格式并显示状态</p>
-                            </div>
-                        </div>
-                        
-                        <div class="tip-item">
-                            <span class="tip-icon">🔄</span>
-                            <div class="tip-content">
-                                <strong>可逆性保证：</strong>
-                                <p>标准模式下加密解密完全可逆，无信息丢失</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                ${tipsSection}
 
                 <!-- 技术规格 -->
-                <section class="help-section">
-                    <h4>技术规格</h4>
-                    <div class="tech-specs">
-                        <div class="spec-row">
-                            <span class="spec-label">字符集：</span>
-                            <span class="spec-value">O (大写O)、0 (数字零)、I (大写I)、l (小写L)</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">编码方式：</span>
-                            <span class="spec-value">UTF-8 → 二进制 → 2位分组映射</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">压缩比：</span>
-                            <span class="spec-value">约 4:1 (1字节 → 4字符)</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">支持语言：</span>
-                            <span class="spec-value">所有UTF-8字符，包括中文、英文、符号等</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">浏览器支持：</span>
-                            <span class="spec-value">现代浏览器，支持ES6+</span>
-                        </div>
-                    </div>
-                </section>
+                ${specsSection}
             </div>
+        `;
+    }
+
+    /**
+     * 生成视觉相似性对比部分
+     * @returns {string} HTML内容
+     */
+    generateSimilaritySection() {
+        const pairs = i18n.currentMessages.help?.similarity?.pairs || [];
+        
+        return `
+            <section class="help-section">
+                <h4>${i18n.t('help.similarity.title')}</h4>
+                <div class="visual-similarity">
+                    <div class="char-comparison">
+                        ${pairs.map(pair => `
+                            <div class="char-pair">
+                                <span class="char-display large">${pair.char1}</span>
+                                <span class="vs">vs</span>
+                                <span class="char-display large">${pair.char2}</span>
+                                <div class="similarity-note">${pair.desc}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </section>
+        `;
+    }
+
+    /**
+     * 生成加密流程部分
+     * @returns {string} HTML内容
+     */
+    generateProcessFlow() {
+        const steps = i18n.currentMessages.help?.process?.steps || [];
+        
+        return `
+            <section class="help-section">
+                <h4>${i18n.t('help.process.title')}</h4>
+                <div class="flow-diagram">
+                    ${steps.map((step, index) => `
+                        <div class="flow-step ${step.number === '✓' ? 'final' : ''}">
+                            <div class="flow-number">${step.number}</div>
+                            <div class="flow-content">
+                                <strong>${step.title}</strong>
+                                <p>${step.desc}</p>
+                            </div>
+                        </div>
+                        ${index < steps.length - 1 ? '<div class="flow-arrow">↓</div>' : ''}
+                    `).join('')}
+                </div>
+            </section>
+        `;
+    }
+
+    /**
+     * 生成视觉效果对比部分
+     * @returns {string} HTML内容
+     */
+    generateVisualComparison() {
+        return `
+            <section class="help-section">
+                <h4>${i18n.t('help.visual.title')}</h4>
+                <div class="visual-comparison">
+                    <div class="comparison-item">
+                        <span class="comparison-label">${i18n.t('help.visual.normal').split(':')[0]}：</span>
+                        <span class="comparison-value">${i18n.t('help.visual.normal').split(':')[1]}</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">${i18n.t('help.visual.mono').split(':')[0]}：</span>
+                        <span class="comparison-value cipher-display">${i18n.t('help.visual.mono').split(':')[1]}</span>
+                    </div>
+                </div>
+            </section>
+        `;
+    }
+
+    /**
+     * 生成使用技巧部分
+     * @returns {string} HTML内容
+     */
+    generateTipsSection() {
+        const tips = i18n.currentMessages.help?.tips?.items || [];
+        
+        return `
+            <section class="help-section">
+                <h4>${i18n.t('help.tips.title')}</h4>
+                <div class="tips-list">
+                    ${tips.map(tip => `
+                        <div class="tip-item">
+                            <span class="tip-icon">${tip.icon}</span>
+                            <div class="tip-content">
+                                <strong>${tip.title}：</strong>
+                                <p>${tip.desc}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+        `;
+    }
+
+    /**
+     * 生成技术规格部分
+     * @returns {string} HTML内容
+     */
+    generateSpecsSection() {
+        const specs = i18n.currentMessages.help?.specs?.items || [];
+        
+        return `
+            <section class="help-section">
+                <h4>${i18n.t('help.specs.title')}</h4>
+                <div class="tech-specs">
+                    ${specs.map(spec => `
+                        <div class="spec-row">
+                            <span class="spec-label">${spec.label}：</span>
+                            <span class="spec-value">${spec.value}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
         `;
     }
 
@@ -237,6 +228,8 @@ export class HelpModal {
      * @returns {string} HTML表格
      */
     generateMappingTable() {
+        const tableData = i18n.currentMessages.help?.mapping?.table || [];
+        
         return `
             <div class="mapping-table">
                 <table>
@@ -248,11 +241,11 @@ export class HelpModal {
                         </tr>
                     </thead>
                     <tbody>
-                        ${Object.entries(BINARY_TO_CHAR).map(([binary, char]) => `
+                        ${tableData.map(row => `
                             <tr>
-                                <td><code>${binary}</code></td>
-                                <td><span class="char-display">${char}</span></td>
-                                <td>${this.getCharDescription(char)}</td>
+                                <td><code>${row.binary}</code></td>
+                                <td><span class="char-display">${row.char}</span></td>
+                                <td>${row.desc}</td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -262,71 +255,30 @@ export class HelpModal {
     }
 
     /**
-     * 获取字符描述
-     * @param {string} char - 字符
-     * @returns {string} 描述
-     */
-    getCharDescription(char) {
-        const descriptions = {
-            'O': '大写字母 O',
-            '0': '数字零',
-            'I': '大写字母 I',
-            'l': '小写字母 L'
-        };
-        return descriptions[char] || char;
-    }
-
-    /**
      * 生成示例演示
      * @returns {string} HTML内容
      */
     generateExampleDemo() {
+        const exampleData = i18n.currentMessages.help?.example;
+        if (!exampleData) return '';
+        
         return `
-            <div class="example-demo">
-                <div class="example-item">
-                    <h5>示例：加密 "Hi"</h5>
-                    <div class="example-steps">
-                        <div class="example-step">
-                            <span class="step-label">原文：</span>
-                            <span class="step-value">"Hi"</span>
-                        </div>
-                        <div class="example-step">
-                            <span class="step-label">UTF-8：</span>
-                            <span class="step-value">[72, 105]</span>
-                        </div>
-                        <div class="example-step">
-                            <span class="step-label">二进制：</span>
-                            <span class="step-value">01001000 01101001</span>
-                        </div>
-                        <div class="example-step">
-                            <span class="step-label">分组：</span>
-                            <span class="step-value">01|00|10|00 01|10|10|01</span>
-                        </div>
-                        <div class="example-step">
-                            <span class="step-label">映射：</span>
-                            <span class="step-value">0|O|I|O 0|I|I|0</span>
-                        </div>
-                        <div class="example-step">
-                            <span class="step-label">密文：</span>
-                            <span class="step-value cipher-display">0OIO0II0</span>
+            <section class="help-section">
+                <h4>${exampleData.title}</h4>
+                <div class="example-demo">
+                    <div class="example-item">
+                        <h5>${exampleData.subtitle}</h5>
+                        <div class="example-steps">
+                            ${exampleData.steps?.map(step => `
+                                <div class="example-step">
+                                    <span class="step-label">${step.label}</span>
+                                    <span class="step-value ${step.label === '密文：' ? 'cipher-display' : ''}">${step.value}</span>
+                                </div>
+                            `).join('') || ''}
                         </div>
                     </div>
                 </div>
-                
-                <div class="example-item">
-                    <h5>视觉效果对比</h5>
-                    <div class="visual-comparison">
-                        <div class="comparison-item">
-                            <span class="comparison-label">普通字体：</span>
-                            <span class="comparison-value">0OIO0II0</span>
-                        </div>
-                        <div class="comparison-item">
-                            <span class="comparison-label">等宽字体：</span>
-                            <span class="comparison-value cipher-display">0OIO0II0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </section>
         `;
     }
 
@@ -335,39 +287,30 @@ export class HelpModal {
      * @returns {string} HTML内容
      */
     generateSecurityInfo() {
+        const securityData = i18n.currentMessages.help?.security;
+        if (!securityData) return '';
+        
         return `
-            <div class="security-info">
-                <div class="security-feature">
-                    <span class="security-icon">🔒</span>
-                    <div class="security-content">
-                        <strong>本地处理：</strong>
-                        <p data-i18n="help.security.content">
-                            加密过程完全在浏览器本地执行，不上传任何数据。支持离线使用，保护隐私安全。
-                        </p>
-                    </div>
+            <section class="help-section">
+                <h4>${securityData.title}</h4>
+                <div class="security-info">
+                    ${securityData.features?.map(feature => `
+                        <div class="security-feature">
+                            <span class="security-icon">${feature.icon}</span>
+                            <div class="security-content">
+                                <strong>${feature.title}：</strong>
+                                <p>${feature.desc}</p>
+                            </div>
+                        </div>
+                    `).join('') || ''}
+                    
+                    ${securityData.warning ? `
+                        <div class="security-note">
+                            <strong>注意：</strong> ${securityData.warning}
+                        </div>
+                    ` : ''}
                 </div>
-                
-                <div class="security-feature">
-                    <span class="security-icon">👁️</span>
-                    <div class="security-content">
-                        <strong>视觉混淆：</strong>
-                        <p>通过视觉相似字符隐藏真实内容，适用于需要视觉隐蔽的场景。</p>
-                    </div>
-                </div>
-                
-                <div class="security-feature">
-                    <span class="security-icon">🔄</span>
-                    <div class="security-content">
-                        <strong>完全可逆：</strong>
-                        <p>标准模式下保证100%可逆，无信息损失。</p>
-                    </div>
-                </div>
-                
-                <div class="security-note">
-                    <strong>注意：</strong> 本工具主要用于视觉混淆，不提供加密安全保护。
-                    如需真正的安全加密，请使用专业的加密算法。
-                </div>
-            </div>
+            </section>
         `;
     }
 

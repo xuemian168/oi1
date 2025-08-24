@@ -60,17 +60,182 @@
   },
   "help": {
     "title": "oi1 Algorithm Principles",
-    "principle": {
-      "title": "Core Principle",
-      "content": "The oi1 algorithm leverages the high visual similarity of characters O, 0, I, l to convert any text into cipher text composed only of these characters, achieving visual obfuscation."
+    "similarity": {
+      "title": "Visual Similarity Comparison",
+      "pairs": [
+        {
+          "char1": "O",
+          "char2": "0", 
+          "desc": "Uppercase O ↔ Digit Zero"
+        },
+        {
+          "char1": "I",
+          "char2": "l",
+          "desc": "Uppercase I ↔ Lowercase L"
+        }
+      ]
     },
     "mapping": {
       "title": "Character Mapping",
-      "content": "The algorithm converts text to binary, mapping each 2-bit binary to a character: 00→O, 01→0, 10→I, 11→l"
+      "subtitle": "The algorithm converts text to binary, mapping each 2-bit binary to a character:",
+      "table": [
+        {
+          "binary": "00",
+          "char": "O",
+          "desc": "Uppercase Letter O"
+        },
+        {
+          "binary": "01", 
+          "char": "0",
+          "desc": "Digit Zero"
+        },
+        {
+          "binary": "10",
+          "char": "I", 
+          "desc": "Uppercase Letter I"
+        },
+        {
+          "binary": "11",
+          "char": "l",
+          "desc": "Lowercase Letter L"
+        }
+      ]
+    },
+    "process": {
+      "title": "Encryption Process",
+      "steps": [
+        {
+          "number": "1",
+          "title": "Text Input",
+          "desc": "Input any UTF-8 text"
+        },
+        {
+          "number": "2", 
+          "title": "UTF-8 Encoding",
+          "desc": "Convert to byte array"
+        },
+        {
+          "number": "3",
+          "title": "Binary Conversion", 
+          "desc": "Each byte to 8-bit binary"
+        },
+        {
+          "number": "4",
+          "title": "Character Mapping",
+          "desc": "Each 2-bit binary maps to O0Il character"
+        },
+        {
+          "number": "✓",
+          "title": "Cipher Output",
+          "desc": "Visual obfuscation text with O0Il only"
+        }
+      ]
+    },
+    "example": {
+      "title": "Encryption Example",
+      "subtitle": "Example: Encrypt \"Hi\"",
+      "steps": [
+        {
+          "label": "Original:",
+          "value": "\"Hi\""
+        },
+        {
+          "label": "UTF-8:",
+          "value": "[72, 105]"
+        },
+        {
+          "label": "Binary:", 
+          "value": "01001000 01101001"
+        },
+        {
+          "label": "Grouped:",
+          "value": "01|00|10|00 01|10|10|01"
+        },
+        {
+          "label": "Mapped:",
+          "value": "0|O|I|O 0|I|I|0"
+        },
+        {
+          "label": "Cipher:",
+          "value": "0OIO0II0"
+        }
+      ]
+    },
+    "visual": {
+      "title": "Visual Effect Comparison",
+      "normal": "Normal Font: 0OIO0II0",
+      "mono": "Monospace Font: 0OIO0II0"
     },
     "security": {
-      "title": "Security Features", 
-      "content": "The encryption process executes entirely in the browser locally, without uploading any data. Supports offline use and protects privacy."
+      "title": "Security Features",
+      "features": [
+        {
+          "icon": "🔒",
+          "title": "Local Processing",
+          "desc": "The encryption process executes entirely in the browser locally, without uploading any data. Supports offline use and protects privacy."
+        },
+        {
+          "icon": "👁️", 
+          "title": "Visual Obfuscation",
+          "desc": "Hides real content through visually similar characters, suitable for scenarios requiring visual concealment."
+        },
+        {
+          "icon": "🔄",
+          "title": "Fully Reversible", 
+          "desc": "Standard mode guarantees 100% reversibility with no information loss."
+        }
+      ],
+      "warning": "Note: This tool is primarily for visual obfuscation and does not provide encryption security protection. For real security encryption, please use professional encryption algorithms."
+    },
+    "tips": {
+      "title": "Usage Tips",
+      "items": [
+        {
+          "icon": "💡",
+          "title": "Keyboard Shortcuts",
+          "desc": "Ctrl+Enter to encrypt/decrypt, Ctrl+K to clear input"
+        },
+        {
+          "icon": "🎨",
+          "title": "Font Optimization",
+          "desc": "Cipher area uses monospace font to enhance visual obfuscation"
+        },
+        {
+          "icon": "📊", 
+          "title": "Real-time Validation",
+          "desc": "Automatically validates format and shows status when inputting cipher"
+        },
+        {
+          "icon": "🔄",
+          "title": "Reversibility Guarantee",
+          "desc": "Standard mode ensures completely reversible encryption/decryption with no information loss"
+        }
+      ]
+    },
+    "specs": {
+      "title": "Technical Specifications",
+      "items": [
+        {
+          "label": "Character Set",
+          "value": "O (Uppercase O), 0 (Digit Zero), I (Uppercase I), l (Lowercase L)"
+        },
+        {
+          "label": "Encoding Method",
+          "value": "UTF-8 → Binary → 2-bit Group Mapping"
+        },
+        {
+          "label": "Compression Ratio",
+          "value": "Approx 4:1 (1 byte → 4 characters)"
+        },
+        {
+          "label": "Language Support",
+          "value": "All UTF-8 characters including Chinese, English, symbols, etc."
+        },
+        {
+          "label": "Browser Support",
+          "value": "Modern browsers supporting ES6+"
+        }
+      ]
     }
   },
   "stats": {
