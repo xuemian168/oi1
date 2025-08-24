@@ -100,5 +100,12 @@
     "encodingError": "Error during encoding: {error}",
     "decodingError": "Error during decoding: {error}",
     "validationError": "Cipher format error: {error}"
+  },
+  "footer": {
+    "github": "GitHub",
+    "linkedin": "LinkedIn", 
+    "email": "Email",
+    "copyright": "© 2024",
+    "rights": "All rights reserved"
   }
 }

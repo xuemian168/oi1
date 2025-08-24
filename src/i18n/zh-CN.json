@@ -100,5 +100,12 @@
     "encodingError": "加密过程中发生错误: {error}",
     "decodingError": "解码过程中发生错误: {error}",
     "validationError": "密文格式错误: {error}"
+  },
+  "footer": {
+    "github": "GitHub",
+    "linkedin": "领英",
+    "email": "邮箱",
+    "copyright": "© 2025",
+    "rights": "保留所有权利"
   }
 }
