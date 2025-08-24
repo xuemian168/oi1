@@ -6,6 +6,12 @@ on:
       - main
   workflow_dispatch:
 
+# 设置必要的权限
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -32,4 +38,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
-          cname: oi.zli.li 
+          cname: oi.zli.li
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy oi1 to GitHub Pages' 
