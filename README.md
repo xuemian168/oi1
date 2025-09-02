@@ -7,10 +7,12 @@ A visual obfuscation text encoder that leverages the high visual similarity betw
 ## ✨ Features
 
 - 🔐 **Visual Obfuscation** - Convert any text into ciphertext containing only O0Il characters
+- 🛡️ **Data Integrity** - CRC32 checksum for data corruption detection (v2 format)
+- 🔄 **Format Compatibility** - Backward compatible with legacy format
 - 🌍 **Multi-language Support** - Chinese/English interface switching
 - 📊 **Real-time Demo** - Visualize encoding and decoding processes
-- 🔧 **Simple & Efficient** - Single standard mode ensuring complete reversibility
-- 🔧 **Fully Reversible** - 100% lossless restoration in standard mode
+- 🔧 **Simple & Efficient** - Automatic format detection and verification
+- 🔧 **Fully Reversible** - 100% lossless restoration with integrity protection
 - 🛡️ **Local Processing** - All operations performed locally in browser
 - 📱 **Responsive Design** - Support for desktop and mobile devices
 
@@ -26,22 +28,31 @@ Character Mapping Table:
 11 → l (Lowercase L)
 ```
 
-### Encoding Process
+### Encoding Process (v2 format with CRC32)
 
 1. **Text to UTF-8** - Convert input text to byte array
-2. **Binary Conversion** - Transform each byte to 8-bit binary string
-3. **Group Mapping** - Map every 2 bits to one O0Il character
-4. **Cipher Output** - Generate ciphertext containing only similar characters
+2. **CRC32 Calculation** - Calculate checksum for integrity verification
+3. **Binary Conversion** - Transform each byte to 8-bit binary string
+4. **Group Mapping** - Map every 2 bits to one O0Il character
+5. **Append Checksum** - Add 16-character CRC32 checksum (seamlessly integrated)
+6. **Cipher Output** - Generate ciphertext with integrity protection
+
+### Format Comparison
+
+- **v1 format (legacy)**: Pure O0Il cipher - `0OIO0II0`
+- **v2 format (current)**: O0Il cipher + CRC32 - `0OIO0II0O0lIO0Il00IlOOI0`
 
 ### Example
 
 ```
 Original: "Hi"
 UTF-8: [72, 105]
+CRC32: 0x1234ABCD → O0lIO0Il00IlOOI0 (16 chars)
 Binary: 01001000 01101001
 Groups: 01|00|10|00 01|10|10|01
 Mapping: 0|O|I|O 0|I|I|0
-Cipher: 0OIO0II0
+Main Cipher: 0OIO0II0
+Final (v2): 0OIO0II0 + O0lIO0Il00IlOOI0 = 0OIO0II0O0lIO0Il00IlOOI0
 ```
 
 ## 🚀 Quick Start
@@ -85,9 +96,9 @@ Development mode: `http://localhost:3000`
 
 2. **Decrypt Text**
    - Enter cipher text in the right panel
-   - System automatically validates format
+   - System automatically detects format and validates integrity
    - Click "Decrypt" button
-   - View decryption result
+   - View decryption result with verification status
 
 ### Keyboard Shortcuts
 
@@ -154,6 +165,8 @@ oi1/
 - ✅ Offline usage support
 - ✅ Open source, auditable code
 - ✅ No server dependencies
+- ✅ CRC32 integrity verification (v2 format)
+- ✅ Automatic corruption detection
 
 ### Suitable Scenarios
 

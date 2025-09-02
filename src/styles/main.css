@@ -245,6 +245,167 @@ body {
     border: 1px solid #fecaca;
 }
 
+.validation-status.crc-verified {
+    background: #ecfdf5;
+    color: var(--success-color);
+    border: 1px solid #bbf7d0;
+}
+
+.validation-status.crc-verified::before {
+    content: "✓ ";
+    font-weight: bold;
+}
+
+.validation-status.legacy-format {
+    background: #fef3c7;
+    color: var(--warning-color);
+    border: 1px solid #fed7aa;
+}
+
+.validation-status.legacy-format::before {
+    content: "⚠ ";
+    font-weight: bold;
+}
+
+.validation-status.no-crc {
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+/* 帮助模态框CRC相关样式 */
+.features-grid {
+    display: grid;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    margin-right: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+.feature-content h5 {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.feature-content p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.formats-comparison {
+    display: grid;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.format-item {
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.format-version {
+    margin: 0 0 var(--spacing-sm) 0;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.format-structure {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.format-example {
+    font-family: var(--cipher-font);
+    background: var(--bg-primary);
+    padding: var(--spacing-sm);
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+    margin: var(--spacing-sm) 0;
+    font-size: 0.9rem;
+}
+
+.format-protection {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.format-note {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+    border-radius: 0.25rem;
+    color: var(--warning-color);
+    font-size: 0.9rem;
+}
+
+.status-guide {
+    margin-top: var(--spacing-md);
+}
+
+.status-item {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.status-icon {
+    font-size: 1.2rem;
+    margin-right: var(--spacing-md);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.status-title {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.status-meaning {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.status-action {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-md);
+}
+
 /* 控制组件 */
 .control-group {
     margin-bottom: var(--spacing-lg);

@@ -64,6 +64,9 @@ export class HelpModal {
         const processFlow = this.generateProcessFlow();
         const exampleDemo = this.generateExampleDemo();
         const visualComparison = this.generateVisualComparison();
+        const dataIntegrity = this.generateDataIntegritySection();
+        const formatComparison = this.generateFormatComparisonSection();
+        const statusGuide = this.generateStatusGuideSection();
         const securityInfo = this.generateSecurityInfo();
         const tipsSection = this.generateTipsSection();
         const specsSection = this.generateSpecsSection();
@@ -85,6 +88,15 @@ export class HelpModal {
 
                 <!-- 示例演示 -->
                 ${exampleDemo}
+
+                <!-- 数据完整性保护 -->
+                ${dataIntegrity}
+
+                <!-- 格式对比 -->
+                ${formatComparison}
+
+                <!-- 校验状态说明 -->
+                ${statusGuide}
 
                 <!-- 视觉效果对比 -->
                 ${visualComparison}
@@ -403,6 +415,91 @@ export class HelpModal {
         } else {
             this.show();
         }
+    }
+
+    /**
+     * 生成数据完整性保护部分
+     * @returns {string} HTML内容
+     */
+    generateDataIntegritySection() {
+        const features = i18n.t('help.dataIntegrity.features');
+        const featuresArray = Array.isArray(features) ? features : [];
+        const featuresHtml = featuresArray.map(feature => `
+            <div class="feature-item">
+                <span class="feature-icon">${feature.icon || '🔧'}</span>
+                <div class="feature-content">
+                    <h5>${feature.title || 'Feature'}</h5>
+                    <p>${feature.desc || 'Description'}</p>
+                </div>
+            </div>
+        `).join('');
+
+        return `
+            <section class="help-section">
+                <h4>${i18n.t('help.dataIntegrity.title')}</h4>
+                <p class="section-subtitle">${i18n.t('help.dataIntegrity.subtitle')}</p>
+                <div class="features-grid">
+                    ${featuresHtml}
+                </div>
+            </section>
+        `;
+    }
+
+    /**
+     * 生成格式对比部分
+     * @returns {string} HTML内容
+     */
+    generateFormatComparisonSection() {
+        const formats = i18n.t('help.formatCompare.formats');
+        const formatsArray = Array.isArray(formats) ? formats : [];
+        const formatsHtml = formatsArray.map(format => `
+            <div class="format-item">
+                <h5 class="format-version">${format.version || 'Format'}</h5>
+                <div class="format-structure">${format.structure || 'Structure'}</div>
+                <div class="format-example cipher-display">${format.example || 'Example'}</div>
+                <div class="format-protection">${format.protection || 'Protection'}</div>
+            </div>
+        `).join('');
+
+        return `
+            <section class="help-section">
+                <h4>${i18n.t('help.formatCompare.title')}</h4>
+                <p class="section-subtitle">${i18n.t('help.formatCompare.description')}</p>
+                <div class="formats-comparison">
+                    ${formatsHtml}
+                </div>
+                <p class="format-note">${i18n.t('help.formatCompare.lengthNote')}</p>
+            </section>
+        `;
+    }
+
+    /**
+     * 生成校验状态说明部分
+     * @returns {string} HTML内容
+     */
+    generateStatusGuideSection() {
+        const statuses = i18n.t('help.statusGuide.statuses');
+        const statusesArray = Array.isArray(statuses) ? statuses : [];
+        const statusesHtml = statusesArray.map(status => `
+            <div class="status-item">
+                <span class="status-icon">${status.icon || '📌'}</span>
+                <div class="status-content">
+                    <h5 class="status-title">${status.status || 'Status'}</h5>
+                    <p class="status-meaning">${status.meaning || 'Meaning'}</p>
+                    <p class="status-action">${status.action || 'Action'}</p>
+                </div>
+            </div>
+        `).join('');
+
+        return `
+            <section class="help-section">
+                <h4>${i18n.t('help.statusGuide.title')}</h4>
+                <p class="section-subtitle">${i18n.t('help.statusGuide.description')}</p>
+                <div class="status-guide">
+                    ${statusesHtml}
+                </div>
+            </section>
+        `;
     }
 
     /**

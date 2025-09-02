@@ -46,7 +46,10 @@
     "invalid": "密文格式错误",
     "empty": "输入不能为空",
     "invalidChar": "包含无效字符",
-    "invalidLength": "长度不正确"
+    "invalidLength": "长度不正确",
+    "crcVerified": "CRC32校验通过，数据完整",
+    "legacyFormat": "旧版格式（无校验）",
+    "noCrc": "无CRC校验"
   },
   "demo": {
     "title": "算法原理演示",
@@ -56,7 +59,65 @@
     "step": "步骤",
     "input": "输入",
     "output": "输出",
-    "technical": "技术详情"
+    "technical": "技术详情",
+    "steps": {
+      "encoding": {
+        "step1": {
+          "title": "文本转UTF-8字节",
+          "description": "将输入文本转换为UTF-8编码的字节数组"
+        },
+        "step2": {
+          "title": "计算CRC32校验码",
+          "description": "计算字节数组的CRC32校验和，用于数据完整性验证"
+        },
+        "step3": {
+          "title": "字节转二进制",
+          "description": "将每个字节转换为8位二进制数"
+        },
+        "step4": {
+          "title": "二进制分组",
+          "description": "将二进制串按每2位分组，准备映射到字符"
+        },
+        "step5": {
+          "title": "映射到O0Il字符",
+          "description": "将每个2位二进制组映射到对应的视觉混淆字符"
+        },
+        "step6": {
+          "title": "附加CRC32校验码",
+          "description": "将CRC32校验码以O0Il字符形式无缝附加到主密文末尾"
+        }
+      },
+      "decoding": {
+        "step1": {
+          "title": "格式检测",
+          "description": "检测密文格式版本，确定是否包含CRC32校验码"
+        },
+        "step2": {
+          "title": "分离CRC32校验码",
+          "description": "从v2格式密文末尾分离16字符CRC32校验码"
+        },
+        "step3": {
+          "title": "字符反映射",
+          "description": "将主密文的O0Il字符反映射为二进制"
+        },
+        "step4": {
+          "title": "重组为字节",
+          "description": "将二进制串按8位分组转换为字节"
+        },
+        "step5": {
+          "title": "UTF-8解码",
+          "description": "将字节数组解码为UTF-8文本"
+        },
+        "step6": {
+          "title": "CRC32校验验证",
+          "description": "计算解码文本的CRC32值并与密文中的校验码比较"
+        },
+        "legacyNote": {
+          "title": "格式说明",
+          "description": "v1格式密文无CRC32校验码，无法验证数据完整性"
+        }
+      }
+    }
   },
   "help": {
     "title": "oi1 算法原理",
@@ -236,6 +297,75 @@
           "value": "现代浏览器，支持ES6+"
         }
       ]
+    },
+    "dataIntegrity": {
+      "title": "数据完整性保护",
+      "subtitle": "v2格式新增CRC32校验和，确保数据传输完整性",
+      "features": [
+        {
+          "icon": "🛡️",
+          "title": "CRC32校验",
+          "desc": "自动计算并验证32位循环冗余校验码，检测数据传输错误"
+        },
+        {
+          "icon": "🔗",
+          "title": "无缝集成", 
+          "desc": "校验码编码为O0Il格式，保持视觉连贯性，末尾16字符为校验码"
+        },
+        {
+          "icon": "🔄",
+          "title": "智能检测",
+          "desc": "自动识别新旧格式，确保向后兼容，旧格式仍可正常解密"
+        },
+        {
+          "icon": "⚡",
+          "title": "快速验证",
+          "desc": "解密时自动校验，CRC计算速度极快，几乎无性能影响"
+        }
+      ]
+    },
+    "formatCompare": {
+      "title": "格式对比",
+      "description": "oi1工具支持两种密文格式，新格式提供更好的数据保护",
+      "formats": [
+        {
+          "version": "v1格式（旧）",
+          "structure": "纯O0Il密文",
+          "example": "0OIO0II0",
+          "protection": "仅视觉混淆"
+        },
+        {
+          "version": "v2格式（新）", 
+          "structure": "O0Il密文 + CRC32校验码",
+          "example": "0OIO0II0O0lIO0Il00IlOOI0",
+          "protection": "视觉混淆 + 完整性验证"
+        }
+      ],
+      "lengthNote": "新格式长度 = 原长度 + 16个校验字符"
+    },
+    "statusGuide": {
+      "title": "校验状态说明",
+      "description": "解密时显示的不同状态含义",
+      "statuses": [
+        {
+          "icon": "✓",
+          "status": "CRC32校验通过",
+          "meaning": "数据完整，未被损坏或篡改",
+          "action": "可放心使用解密结果"
+        },
+        {
+          "icon": "⚠",
+          "status": "旧版格式",
+          "meaning": "v1格式密文，无校验保护",
+          "action": "建议重新加密获得校验保护"
+        },
+        {
+          "icon": "✗",
+          "status": "校验失败",
+          "meaning": "数据可能在传输中损坏或被篡改",
+          "action": "请重新获取原始密文或检查输入"
+        }
+      ]
     }
   },
   "stats": {
@@ -249,8 +379,10 @@
   "messages": {
     "copySuccess": "已复制到剪贴板",
     "copyError": "复制失败",
-    "encodeSuccess": "加密完成",
+    "encodeSuccess": "加密完成（已添加CRC32校验）",
     "decodeSuccess": "解密完成",
+    "decodeSuccessWithCRC": "解密完成，CRC32校验通过",
+    "decodeSuccessLegacy": "解密完成（旧版格式，建议重新加密）",
     "encodeError": "加密失败",
     "decodeError": "解密失败",
     "invalidInput": "输入无效",

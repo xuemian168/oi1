@@ -241,11 +241,14 @@ class OI1App {
             this.setButtonLoading(this.elements.decodeBtn, true);
             
             // 执行解密
-            const plaintext = this.decoder.decode(ciphertext);
+            const decodeResult = this.decoder.decode(ciphertext);
             
             // 显示结果
-            this.elements.plaintextOutput.value = plaintext;
+            this.elements.plaintextOutput.value = decodeResult.plaintext;
             this.updateCharCount('plaintextOutput');
+            
+            // 显示CRC校验状态
+            this.updateCRCStatus(decodeResult);
             
             // 更新按钮状态
             this.updateButtonStates();
@@ -253,7 +256,14 @@ class OI1App {
             // 生成演示
             this.demoViewer.showDecodingDemo(ciphertext);
             
-            this.showMessage(i18n.t('messages.decodeSuccess'), 'success');
+            // 根据校验结果显示不同消息
+            if (decodeResult.formatVersion === 'v2') {
+                this.showMessage(i18n.t('messages.decodeSuccessWithCRC'), 'success');
+            } else if (decodeResult.formatVersion === 'v1') {
+                this.showMessage(i18n.t('messages.decodeSuccessLegacy'), 'info');
+            } else {
+                this.showMessage(i18n.t('messages.decodeSuccess'), 'success');
+            }
             
         } catch (error) {
             console.error('Decoding error:', error);
@@ -325,6 +335,34 @@ class OI1App {
         if (type === 'none') {
             this.elements.validationStatus.className = 'validation-status';
         }
+    }
+
+    /**
+     * 更新CRC校验状态显示
+     * @param {Object} decodeResult - 解码结果
+     */
+    updateCRCStatus(decodeResult) {
+        if (!this.elements.validationStatus) return;
+
+        let message = '';
+        let statusClass = '';
+
+        if (decodeResult.formatVersion === 'v2' && decodeResult.crcVerified) {
+            // v2格式且CRC校验通过
+            message = i18n.t('validation.crcVerified');
+            statusClass = 'crc-verified';
+        } else if (decodeResult.formatVersion === 'v1') {
+            // v1格式（旧版本）
+            message = i18n.t('validation.legacyFormat');
+            statusClass = 'legacy-format';
+        } else {
+            // 其他情况
+            message = i18n.t('validation.noCrc');
+            statusClass = 'no-crc';
+        }
+
+        this.elements.validationStatus.textContent = message;
+        this.elements.validationStatus.className = `validation-status ${statusClass}`;
     }
 
 

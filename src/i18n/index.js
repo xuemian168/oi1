@@ -68,9 +68,14 @@ class I18nManager {
             }
         }
         
-        if (typeof value !== 'string') {
-            console.warn(`Translation key should resolve to string: ${key}`);
+        if (typeof value !== 'string' && !Array.isArray(value) && typeof value !== 'object') {
+            console.warn(`Translation key should resolve to string, array, or object: ${key}`);
             return key;
+        }
+        
+        // 如果是数组或对象，直接返回
+        if (Array.isArray(value) || typeof value === 'object') {
+            return value;
         }
         
         // 替换参数

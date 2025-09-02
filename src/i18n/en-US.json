@@ -46,7 +46,10 @@
     "invalid": "Cipher format is invalid",
     "empty": "Input cannot be empty",
     "invalidChar": "Contains invalid characters",
-    "invalidLength": "Incorrect length"
+    "invalidLength": "Incorrect length",
+    "crcVerified": "CRC32 verified, data intact",
+    "legacyFormat": "Legacy format (no checksum)",
+    "noCrc": "No CRC checksum"
   },
   "demo": {
     "title": "Algorithm Demonstration",
@@ -56,7 +59,65 @@
     "step": "Step",
     "input": "Input",
     "output": "Output",
-    "technical": "Technical Details"
+    "technical": "Technical Details",
+    "steps": {
+      "encoding": {
+        "step1": {
+          "title": "Text to UTF-8 Bytes",
+          "description": "Convert input text to UTF-8 encoded byte array"
+        },
+        "step2": {
+          "title": "Calculate CRC32 Checksum",
+          "description": "Calculate CRC32 checksum for data integrity verification"
+        },
+        "step3": {
+          "title": "Bytes to Binary",
+          "description": "Convert each byte to 8-bit binary number"
+        },
+        "step4": {
+          "title": "Binary Grouping",
+          "description": "Group binary string into 2-bit segments for character mapping"
+        },
+        "step5": {
+          "title": "Map to O0Il Characters",
+          "description": "Map each 2-bit binary group to corresponding visual obfuscation character"
+        },
+        "step6": {
+          "title": "Append CRC32 Checksum",
+          "description": "Seamlessly append CRC32 checksum as O0Il characters to main cipher"
+        }
+      },
+      "decoding": {
+        "step1": {
+          "title": "Format Detection",
+          "description": "Detect cipher format version and determine if CRC32 checksum is included"
+        },
+        "step2": {
+          "title": "Separate CRC32 Checksum",
+          "description": "Separate 16-character CRC32 checksum from end of v2 format cipher"
+        },
+        "step3": {
+          "title": "Character Reverse Mapping",
+          "description": "Reverse map main cipher O0Il characters back to binary"
+        },
+        "step4": {
+          "title": "Reassemble to Bytes",
+          "description": "Group binary string into 8-bit segments and convert to bytes"
+        },
+        "step5": {
+          "title": "UTF-8 Decoding",
+          "description": "Decode byte array back to UTF-8 text"
+        },
+        "step6": {
+          "title": "CRC32 Checksum Verification",
+          "description": "Calculate decoded text CRC32 and compare with cipher checksum"
+        },
+        "legacyNote": {
+          "title": "Format Note",
+          "description": "v1 format cipher has no CRC32 checksum, cannot verify data integrity"
+        }
+      }
+    }
   },
   "help": {
     "title": "oi1 Algorithm Principles",
@@ -236,6 +297,75 @@
           "value": "Modern browsers supporting ES6+"
         }
       ]
+    },
+    "dataIntegrity": {
+      "title": "Data Integrity Protection",
+      "subtitle": "v2 format includes CRC32 checksum for transmission integrity assurance",
+      "features": [
+        {
+          "icon": "🛡️",
+          "title": "CRC32 Checksum",
+          "desc": "Automatic calculation and verification of 32-bit cyclic redundancy check for data transmission error detection"
+        },
+        {
+          "icon": "🔗",
+          "title": "Seamless Integration",
+          "desc": "Checksum encoded as O0Il format, maintaining visual coherence, with last 16 characters as checksum"
+        },
+        {
+          "icon": "🔄",
+          "title": "Smart Detection",
+          "desc": "Automatic format recognition ensuring backward compatibility, legacy format still works normally"
+        },
+        {
+          "icon": "⚡",
+          "title": "Fast Verification",
+          "desc": "Automatic verification during decryption, CRC calculation is extremely fast with virtually no performance impact"
+        }
+      ]
+    },
+    "formatCompare": {
+      "title": "Format Comparison",
+      "description": "oi1 tool supports two cipher formats, new format provides better data protection",
+      "formats": [
+        {
+          "version": "v1 format (legacy)",
+          "structure": "Pure O0Il cipher",
+          "example": "0OIO0II0",
+          "protection": "Visual obfuscation only"
+        },
+        {
+          "version": "v2 format (current)",
+          "structure": "O0Il cipher + CRC32 checksum",
+          "example": "0OIO0II0O0lIO0Il00IlOOI0",
+          "protection": "Visual obfuscation + integrity verification"
+        }
+      ],
+      "lengthNote": "New format length = original length + 16 checksum characters"
+    },
+    "statusGuide": {
+      "title": "Verification Status Guide",
+      "description": "Meaning of different statuses shown during decryption",
+      "statuses": [
+        {
+          "icon": "✓",
+          "status": "CRC32 verified",
+          "meaning": "Data intact, not corrupted or tampered",
+          "action": "Safe to use decryption result"
+        },
+        {
+          "icon": "⚠",
+          "status": "Legacy format",
+          "meaning": "v1 format cipher, no checksum protection",
+          "action": "Recommend re-encryption for checksum protection"
+        },
+        {
+          "icon": "✗",
+          "status": "Verification failed",
+          "meaning": "Data may be corrupted during transmission or tampered",
+          "action": "Please re-obtain original cipher or check input"
+        }
+      ]
     }
   },
   "stats": {
@@ -249,8 +379,10 @@
   "messages": {
     "copySuccess": "Copied to clipboard",
     "copyError": "Copy failed",
-    "encodeSuccess": "Encryption completed",
+    "encodeSuccess": "Encryption completed (CRC32 checksum added)",
     "decodeSuccess": "Decryption completed",
+    "decodeSuccessWithCRC": "Decryption completed, CRC32 verified",
+    "decodeSuccessLegacy": "Decryption completed (legacy format, recommend re-encryption)",
     "encodeError": "Encryption failed",
     "decodeError": "Decryption failed",
     "invalidInput": "Invalid input",
